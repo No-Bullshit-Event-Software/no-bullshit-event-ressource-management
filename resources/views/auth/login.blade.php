@@ -69,5 +69,8 @@
             </div>
         </div>
     </div>
+
+    <a href="redirect/google">Login in with Google</a>
+
 </div>
 @endsection
