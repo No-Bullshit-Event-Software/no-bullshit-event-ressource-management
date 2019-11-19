@@ -161,7 +161,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        // IDE Helper
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        //Socialite auth
+        Laravel\Socialite\SocialiteServiceProvider::class,
+
 
 
         /*

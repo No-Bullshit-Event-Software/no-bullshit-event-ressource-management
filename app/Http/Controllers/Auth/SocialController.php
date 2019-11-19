@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+use Exception;
+use App\User;
+use Auth;
 
 
 
@@ -38,10 +41,28 @@ class SocialController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
 
-        // $user->token;
+        $usersocial = Socialite::driver('google')->user();
 
-        auth()->login($user);
+        $finduser = User::where('email', $usersocial-> getEmail())->first();
+
+        if($finduser !== null) { // USER EXIST LOG IT IN
+            Auth::login($finduser);
+            return redirect('/home');
+
+        }
+
+        // User does not exist
+        $newUser = User::create([
+            'name' => $usersocial->name,
+            'email' => $usersocial->email,
+            'google_id'=> $usersocial->id,
+            'password' => "password",
+        ]);
+
+        Auth::login($newUser);
+
+        return redirect('/home');
+
     }
 }
